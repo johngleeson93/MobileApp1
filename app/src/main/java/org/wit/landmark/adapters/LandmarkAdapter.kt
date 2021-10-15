@@ -3,7 +3,8 @@ package org.wit.landmark.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import org.wit.landmark.databinding.CardLandmarkBinding
+import com.squareup.picasso.Picasso
+import landmark.databinding.CardLandmarkBinding
 import org.wit.landmark.models.LandmarkModel
 
 interface LandmarkListener {
@@ -11,7 +12,7 @@ interface LandmarkListener {
 }
 
 class LandmarkAdapter constructor(private var landmarks: List<LandmarkModel>,
-                              private val listener: LandmarkListener) :
+                                   private val listener: LandmarkListener) :
         RecyclerView.Adapter<LandmarkAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
@@ -34,6 +35,7 @@ class LandmarkAdapter constructor(private var landmarks: List<LandmarkModel>,
         fun bind(landmark: LandmarkModel, listener: LandmarkListener) {
             binding.landmarkTitle.text = landmark.title
             binding.description.text = landmark.description
+            Picasso.get().load(landmark.image).resize(200,200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onLandmarkClick(landmark) }
         }
     }

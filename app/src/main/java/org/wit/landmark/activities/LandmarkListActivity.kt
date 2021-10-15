@@ -4,12 +4,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import org.wit.landmark.R
+import landmark.R
+import landmark.databinding.ActivityLandmarkListBinding
 import org.wit.landmark.adapters.LandmarkAdapter
 import org.wit.landmark.adapters.LandmarkListener
-import org.wit.landmark.databinding.ActivityLandmarkListBinding
 import org.wit.landmark.main.MainApp
 import org.wit.landmark.models.LandmarkModel
 
@@ -17,6 +19,7 @@ class LandmarkListActivity : AppCompatActivity(), LandmarkListener {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityLandmarkListBinding
+    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +33,8 @@ class LandmarkListActivity : AppCompatActivity(), LandmarkListener {
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
         binding.recyclerView.adapter = LandmarkAdapter(app.landmarks.findAll(),this)
+
+        registerRefreshCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -41,7 +46,7 @@ class LandmarkListActivity : AppCompatActivity(), LandmarkListener {
         when (item.itemId) {
             R.id.item_add -> {
                 val launcherIntent = Intent(this, LandmarkActivity::class.java)
-                startActivityForResult(launcherIntent,0)
+                refreshIntentLauncher.launch(launcherIntent)
             }
         }
         return super.onOptionsItemSelected(item)
@@ -50,11 +55,12 @@ class LandmarkListActivity : AppCompatActivity(), LandmarkListener {
     override fun onLandmarkClick(landmark: LandmarkModel) {
         val launcherIntent = Intent(this, LandmarkActivity::class.java)
         launcherIntent.putExtra("landmark_edit", landmark)
-        startActivityForResult(launcherIntent,0)
+        refreshIntentLauncher.launch(launcherIntent)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        binding.recyclerView.adapter?.notifyDataSetChanged()
-        super.onActivityResult(requestCode, resultCode, data)
+    private fun registerRefreshCallback() {
+        refreshIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            { binding.recyclerView.adapter?.notifyDataSetChanged() }
     }
 }
