@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="landmark.activities.LandmarkActivity">
+    tools:context="org.wit.landmark.activities.LandmarkActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/placemarkTitle"
+                    android:id="@+id/landmarkTitle"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_margin="8dp"
@@ -65,7 +65,8 @@
                     android:maxLines="1"
                     android:padding="8dp"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:importantForAutofill="no" />
 
                 <Button
                     android:id="@+id/chooseImage"
@@ -83,7 +84,8 @@
                     android:id="@+id/landmarkImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@mipmap/ic_launcher"/>
+                    app:srcCompat="@mipmap/ic_launcher"
+                    tools:ignore="ContentDescription" />
 
                 <Button
                     android:id="@+id/landmarkLocation"

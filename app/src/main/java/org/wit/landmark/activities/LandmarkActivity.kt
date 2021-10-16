@@ -23,8 +23,8 @@ class LandmarkActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLandmarkBinding
     var landmark = LandmarkModel()
     lateinit var app: MainApp
-    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
-    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var imageIntentLauncher: ActivityResultLauncher<Intent>
+    private lateinit var mapIntentLauncher: ActivityResultLauncher<Intent>
     var location = Location(52.245696, -7.139102, 15f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +44,7 @@ class LandmarkActivity : AppCompatActivity() {
         if (intent.hasExtra("landmark_edit")) {
             edit = true
             landmark = intent.extras?.getParcelable("landmark_edit")!!
-            binding.placemarkTitle.setText(landmark.title)
+            binding.landmarkTitle.setText(landmark.title)
             binding.description.setText(landmark.description)
             binding.btnAdd.setText(R.string.save_landmark)
             Picasso.get()
@@ -59,8 +59,8 @@ class LandmarkActivity : AppCompatActivity() {
             landmark.title = binding.landmarkTitle.text.toString()
             landmark.description = binding.description.text.toString()
             if (landmark.title.isEmpty()) {
-                Snackbar.make(it,R.string.enter_landmark_title, Snackbar.LENGTH_LONG)
-                        .show()
+                Snackbar.make(it, R.string.enter_landmark_title, Snackbar.LENGTH_LONG)
+                    .show()
             } else {
                 if (edit) {
                     app.landmarks.update(landmark.copy())
@@ -105,18 +105,21 @@ class LandmarkActivity : AppCompatActivity() {
         imageIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
             { result ->
-                when(result.resultCode){
+                when (result.resultCode) {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Result ${result.data!!.data}")
                             landmark.image = result.data!!.data!!
                             Picasso.get()
-                                   .load(landmark.image)
-                                   .into(binding.landmarkImage)
+                                .load(landmark.image)
+                                .into(binding.landmarkImage)
                             binding.chooseImage.setText(R.string.change_landmark_image)
                         } // end of if
                     }
-                    RESULT_CANCELED -> { } else -> { }
+                    RESULT_CANCELED -> {
+                    }
+                    else -> {
+                    }
                 }
             }
     }
@@ -133,7 +136,10 @@ class LandmarkActivity : AppCompatActivity() {
                             i("Location == $location")
                         } // end of if
                     }
-                    RESULT_CANCELED -> { } else -> { }
+                    RESULT_CANCELED -> {
+                    }
+                    else -> {
+                    }
                 }
             }
     }
