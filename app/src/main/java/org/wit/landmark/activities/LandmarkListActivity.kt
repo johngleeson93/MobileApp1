@@ -1,5 +1,6 @@
 package org.wit.landmark.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -32,7 +33,7 @@ class LandmarkListActivity : AppCompatActivity(), LandmarkListener {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = LandmarkAdapter(app.landmarks.findAll(),this)
+        binding.recyclerView.adapter = LandmarkAdapter(app.landmarkStore.findAll(),this)
 
         registerRefreshCallback()
     }
@@ -58,6 +59,7 @@ class LandmarkListActivity : AppCompatActivity(), LandmarkListener {
         refreshIntentLauncher.launch(launcherIntent)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun registerRefreshCallback() {
         refreshIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())

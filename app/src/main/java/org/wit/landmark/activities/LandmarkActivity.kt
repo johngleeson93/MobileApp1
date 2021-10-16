@@ -1,5 +1,6 @@
 package org.wit.landmark.activities
 
+
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -63,9 +64,9 @@ class LandmarkActivity : AppCompatActivity() {
                     .show()
             } else {
                 if (edit) {
-                    app.landmarks.update(landmark.copy())
+                    app.landmarkStore.update(landmark.copy())
                 } else {
-                    app.landmarks.create(landmark.copy())
+                    app.landmarkStore.create(landmark.copy())
                 }
             }
             i("add Button Pressed: $landmark")
