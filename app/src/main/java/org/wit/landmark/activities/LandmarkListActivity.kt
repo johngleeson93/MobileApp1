@@ -9,8 +9,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import org.wit.landmark.R
-import org.wit.landmark.adapters.LandmarkAdapter
 import org.wit.landmark.adapters.LandmarkListener
+import org.wit.landmark.adapters.LandmarkAdapter
 import org.wit.landmark.databinding.ActivityLandmarkListBinding
 import org.wit.landmark.main.MainApp
 import org.wit.landmark.models.LandmarkModel

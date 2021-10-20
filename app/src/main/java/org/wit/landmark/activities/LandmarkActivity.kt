@@ -14,8 +14,8 @@ import org.wit.landmark.R
 import org.wit.landmark.databinding.ActivityLandmarkBinding
 import org.wit.landmark.main.MainApp
 import org.wit.landmark.models.Location
-import org.wit.landmark.helpers.showImagePicker
 import org.wit.landmark.models.LandmarkModel
+import org.wit.landmark.helpers.showImagePicker
 import timber.log.Timber.i
 
 class LandmarkActivity : AppCompatActivity() {
