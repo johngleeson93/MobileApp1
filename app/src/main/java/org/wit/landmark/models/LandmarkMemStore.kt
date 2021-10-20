@@ -8,9 +8,9 @@ internal fun getId(): Long {
     return lastId++
 }
 
-class LandmarkMemStore : LandmarkStore {
+ class LandmarkMemStore : LandmarkStore {
 
-    val landmarks = ArrayList<LandmarkModel>()
+    private val landmarks = ArrayList<LandmarkModel>()
 
     override fun findAll(): List<LandmarkModel> {
         return landmarks
