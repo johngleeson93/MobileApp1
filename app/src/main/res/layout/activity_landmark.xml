@@ -65,8 +65,7 @@
                     android:maxLines="1"
                     android:padding="8dp"
                     android:textColor="@color/colorPrimaryDark"
-                    android:textSize="14sp"
-                    android:importantForAutofill="no" />
+                    android:textSize="14sp" />
 
                 <Button
                     android:id="@+id/chooseImage"
@@ -84,8 +83,7 @@
                     android:id="@+id/landmarkImage"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@mipmap/ic_launcher"
-                    tools:ignore="ContentDescription" />
+                    app:srcCompat="@mipmap/ic_launcher"/>
 
                 <Button
                     android:id="@+id/landmarkLocation"

@@ -1,6 +1,5 @@
 package org.wit.landmark.activities
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -9,18 +8,19 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import landmark.R
-import landmark.databinding.ActivityLandmarkListBinding
+import org.wit.landmark.R
 import org.wit.landmark.adapters.LandmarkAdapter
 import org.wit.landmark.adapters.LandmarkListener
+import org.wit.landmark.databinding.ActivityLandmarkListBinding
 import org.wit.landmark.main.MainApp
 import org.wit.landmark.models.LandmarkModel
 
-class LandmarkListActivity : AppCompatActivity(), LandmarkListener {
+class LandmarkListActivity : AppCompatActivity(), LandmarkListener/*, MultiplePermissionsListener*/ {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityLandmarkListBinding
     private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,9 +33,10 @@ class LandmarkListActivity : AppCompatActivity(), LandmarkListener {
 
         val layoutManager = LinearLayoutManager(this)
         binding.recyclerView.layoutManager = layoutManager
-        binding.recyclerView.adapter = LandmarkAdapter(app.landmarkStore.findAll(),this)
 
+        loadLandmarks()
         registerRefreshCallback()
+        registerMapCallback()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -49,6 +50,10 @@ class LandmarkListActivity : AppCompatActivity(), LandmarkListener {
                 val launcherIntent = Intent(this, LandmarkActivity::class.java)
                 refreshIntentLauncher.launch(launcherIntent)
             }
+            R.id.item_map -> {
+                val launcherIntent = Intent(this, LandmarkMapsActivity::class.java)
+                mapIntentLauncher.launch(launcherIntent)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -59,10 +64,25 @@ class LandmarkListActivity : AppCompatActivity(), LandmarkListener {
         refreshIntentLauncher.launch(launcherIntent)
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     private fun registerRefreshCallback() {
         refreshIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            { binding.recyclerView.adapter?.notifyDataSetChanged() }
+            { loadLandmarks() }
     }
+
+    private fun registerMapCallback() {
+        mapIntentLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult())
+            {  }
+    }
+
+    private fun loadLandmarks() {
+        showLandmarks(app.landmarks.findAll())
+    }
+
+    fun showLandmarks (landmarks: List<LandmarkModel>) {
+        binding.recyclerView.adapter = LandmarkAdapter(landmarks, this)
+        binding.recyclerView.adapter?.notifyDataSetChanged()
+    }
+
 }
