@@ -1,32 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="landmark">
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    package="org.wit.landmark">
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:name="org.wit.landmark.main.MainApp"
+        android:name=".main.MainApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Landmark"
-        android:foregroundServiceType="location"
-        tools:ignore="AllowBackup">
+        android:theme="@style/Theme.Landmark">
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name="org.wit.landmark.activities.MapActivity"
+            android:name=".activities.MapActivity"
             android:exported="true"
             android:label="@string/title_activity_map" />
         <activity
-            android:name="org.wit.landmark.activities.LandmarkListActivity"
+            android:name=".activities.LandmarkListActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +31,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.wit.landmark.activities.LandmarkActivity" />
+        <activity android:name=".activities.LandmarkActivity" />
+        <activity android:name=".activities.LandmarkMapsActivity" />
     </application>
 
 </manifest>
