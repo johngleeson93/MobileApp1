@@ -17,4 +17,5 @@
     <string name="landmark_image_placeholder">Landmark Image</string>
     <string name="landmark_title_placeholder">Landmark Title</string>
     <string name="landmark_description_placeholder">Landmark Description</string>
+    <string name="landmarks">Landmarks</string>
 </resources>
