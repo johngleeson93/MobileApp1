@@ -25,7 +25,6 @@ class LandmarkActivity : AppCompatActivity() {
     lateinit var app: MainApp
     private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
     private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
-    //var location = Location(52.245696, -7.139102, 15f)
     var edit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -77,7 +76,7 @@ class LandmarkActivity : AppCompatActivity() {
         }
 
         binding.landmarkLocation.setOnClickListener {
-            val location = Location(52.245696, -7.139102, 15f)
+            val location = Location(52.54187605, -8.868203523779776, 15f)
             if (landmark.zoom != 0f) {
                 location.lat =  landmark.lat
                 location.lng = landmark.lng
