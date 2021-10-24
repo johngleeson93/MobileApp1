@@ -11,8 +11,8 @@ import java.util.*
 
 const val JSON_FILE = "landmarks.json"
 val gsonBuilder: Gson = GsonBuilder().setPrettyPrinting()
-                 .registerTypeAdapter(Uri::class.java, UriParser())
-                 .create()
+    .registerTypeAdapter(Uri::class.java, UriParser())
+    .create()
 val listType: Type = object : TypeToken<ArrayList<LandmarkModel>>() {}.type
 
 fun generateRandomId(): Long {
@@ -75,7 +75,7 @@ class LandmarkJSONStore(private val context: Context) : LandmarkStore {
     }
 }
 
-class UriParser : JsonDeserializer<Uri>,JsonSerializer<Uri> {
+class UriParser : JsonDeserializer<Uri>, JsonSerializer<Uri> {
     override fun deserialize(
         json: JsonElement?,
         typeOfT: Type?,

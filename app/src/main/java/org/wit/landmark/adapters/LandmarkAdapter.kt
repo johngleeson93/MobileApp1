@@ -15,11 +15,11 @@ class LandmarkAdapter constructor(
     private var landmarks: List<LandmarkModel>,
     private val listener: LandmarkListener
 ) :
-        RecyclerView.Adapter<LandmarkAdapter.MainHolder>() {
+    RecyclerView.Adapter<LandmarkAdapter.MainHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
         val binding = CardLandmarkBinding
-                .inflate(LayoutInflater.from(parent.context), parent, false)
+            .inflate(LayoutInflater.from(parent.context), parent, false)
 
         return MainHolder(binding)
     }
@@ -32,12 +32,12 @@ class LandmarkAdapter constructor(
     override fun getItemCount(): Int = landmarks.size
 
     class MainHolder(private val binding: CardLandmarkBinding) :
-            RecyclerView.ViewHolder(binding.root) {
+        RecyclerView.ViewHolder(binding.root) {
 
         fun bind(landmark: LandmarkModel, listener: LandmarkListener) {
             binding.landmarkTitle.text = landmark.title
             binding.description.text = landmark.description
-            Picasso.get().load(landmark.image).resize(200,200).into(binding.imageIcon)
+            Picasso.get().load(landmark.image).resize(200, 200).into(binding.imageIcon)
             binding.root.setOnClickListener { listener.onLandmarkClick(landmark) }
         }
     }
