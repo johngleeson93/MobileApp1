@@ -1,5 +1,6 @@
 package org.wit.landmark.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -80,6 +81,7 @@ class LandmarkListActivity : AppCompatActivity(), LandmarkListener/*, MultiplePe
         showLandmarks(app.landmarks.findAll())
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun showLandmarks (landmarks: List<LandmarkModel>) {
         binding.recyclerView.adapter = LandmarkAdapter(landmarks, this)
         binding.recyclerView.adapter?.notifyDataSetChanged()
