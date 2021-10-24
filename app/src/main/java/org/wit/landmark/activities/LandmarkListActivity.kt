@@ -1,5 +1,6 @@
 package org.wit.landmark.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -15,12 +16,13 @@ import org.wit.landmark.databinding.ActivityLandmarkListBinding
 import org.wit.landmark.main.MainApp
 import org.wit.landmark.models.LandmarkModel
 
-class LandmarkListActivity : AppCompatActivity(), LandmarkListener/*, MultiplePermissionsListener*/ {
+class LandmarkListActivity : AppCompatActivity(),
+    LandmarkListener/*, MultiplePermissionsListener*/ {
 
     lateinit var app: MainApp
     private lateinit var binding: ActivityLandmarkListBinding
-    private lateinit var refreshIntentLauncher : ActivityResultLauncher<Intent>
-    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
+    private lateinit var refreshIntentLauncher: ActivityResultLauncher<Intent>
+    private lateinit var mapIntentLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,14 +75,15 @@ class LandmarkListActivity : AppCompatActivity(), LandmarkListener/*, MultiplePe
     private fun registerMapCallback() {
         mapIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
-            {  }
+            { }
     }
 
     private fun loadLandmarks() {
         showLandmarks(app.landmarks.findAll())
     }
 
-    fun showLandmarks (landmarks: List<LandmarkModel>) {
+    @SuppressLint("NotifyDataSetChanged")
+    fun showLandmarks(landmarks: List<LandmarkModel>) {
         binding.recyclerView.adapter = LandmarkAdapter(landmarks, this)
         binding.recyclerView.adapter?.notifyDataSetChanged()
     }

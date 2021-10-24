@@ -23,9 +23,8 @@ class LandmarkActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLandmarkBinding
     var landmark = LandmarkModel()
     lateinit var app: MainApp
-    private lateinit var imageIntentLauncher : ActivityResultLauncher<Intent>
-    private lateinit var mapIntentLauncher : ActivityResultLauncher<Intent>
-    //var location = Location(52.245696, -7.139102, 15f)
+    private lateinit var imageIntentLauncher: ActivityResultLauncher<Intent>
+    private lateinit var mapIntentLauncher: ActivityResultLauncher<Intent>
     var edit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,11 +39,14 @@ class LandmarkActivity : AppCompatActivity() {
 
         i("Landmark Activity started...")
 
+
         if (intent.hasExtra("landmark_edit")) {
             edit = true
             landmark = intent.extras?.getParcelable("landmark_edit")!!
             binding.landmarkTitle.setText(landmark.title)
+
             binding.description.setText(landmark.description)
+
             binding.btnAdd.setText(R.string.save_landmark)
             Picasso.get()
                 .load(landmark.image)
@@ -52,14 +54,14 @@ class LandmarkActivity : AppCompatActivity() {
             if (landmark.image != Uri.EMPTY) {
                 binding.chooseImage.setText(R.string.change_landmark_image)
             }
+
         }
 
-        binding.btnAdd.setOnClickListener() {
+        binding.btnAdd.setOnClickListener {
             landmark.title = binding.landmarkTitle.text.toString()
             landmark.description = binding.description.text.toString()
-            if (landmark.title.isEmpty()) {
-                Snackbar.make(it,R.string.enter_landmark_title, Snackbar.LENGTH_LONG)
-                        .show()
+            if (landmark.title.isBlank() || (landmark.description.isBlank())) {
+                Snackbar.make(it, R.string.enter_landmark_title, Snackbar.LENGTH_LONG).show()
             } else {
                 if (edit) {
                     app.landmarks.update(landmark.copy())
@@ -77,9 +79,9 @@ class LandmarkActivity : AppCompatActivity() {
         }
 
         binding.landmarkLocation.setOnClickListener {
-            val location = Location(52.245696, -7.139102, 15f)
+            val location = Location(52.54187605, -8.868203523779776, 15f)
             if (landmark.zoom != 0f) {
-                location.lat =  landmark.lat
+                location.lat = landmark.lat
                 location.lng = landmark.lng
                 location.zoom = landmark.zoom
             }
@@ -115,18 +117,21 @@ class LandmarkActivity : AppCompatActivity() {
         imageIntentLauncher =
             registerForActivityResult(ActivityResultContracts.StartActivityForResult())
             { result ->
-                when(result.resultCode){
+                when (result.resultCode) {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Result ${result.data!!.data}")
                             landmark.image = result.data!!.data!!
                             Picasso.get()
-                                   .load(landmark.image)
-                                   .into(binding.landmarkImage)
+                                .load(landmark.image)
+                                .into(binding.landmarkImage)
                             binding.chooseImage.setText(R.string.change_landmark_image)
                         } // end of if
                     }
-                    RESULT_CANCELED -> { } else -> { }
+                    RESULT_CANCELED -> {
+                    }
+                    else -> {
+                    }
                 }
             }
     }
@@ -139,14 +144,18 @@ class LandmarkActivity : AppCompatActivity() {
                     RESULT_OK -> {
                         if (result.data != null) {
                             i("Got Location ${result.data.toString()}")
-                            val location = result.data!!.extras?.getParcelable<Location>("location")!!
+                            val location =
+                                result.data!!.extras?.getParcelable<Location>("location")!!
                             i("Location == $location")
                             landmark.lat = location.lat
                             landmark.lng = location.lng
                             landmark.zoom = location.zoom
                         } // end of if
                     }
-                    RESULT_CANCELED -> { } else -> { }
+                    RESULT_CANCELED -> {
+                    }
+                    else -> {
+                    }
                 }
             }
     }
