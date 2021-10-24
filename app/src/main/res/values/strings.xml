@@ -5,7 +5,7 @@
     <string name="hint_landmarkDescription">Description </string>
     <string name="menu_addLandmark">Add</string>
     <string name="menu_cancelLandmark">Cancel</string>
-    <string name="enter_landmark_title"> Please enter a Landmark Title </string>
+    <string name="enter_landmark_title"> Please answer all fields correctly </string>
     <string name="save_landmark"> Save Landmark </string>
     <string name="button_addImage"> Add Image </string>
     <string name="select_landmark_image">Select landmark image</string>
@@ -18,4 +18,5 @@
     <string name="landmark_title_placeholder">Landmark Title</string>
     <string name="landmark_description_placeholder">Landmark Description</string>
     <string name="landmarks">Landmarks</string>
+    <string name="menu_main">Menu</string>
 </resources>

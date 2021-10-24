@@ -10,6 +10,6 @@
     <item
         android:id="@+id/item_add"
         android:title="@string/menu_addLandmark"
-        app:showAsAction="never" />
+        app:showAsAction="always" />
 
 </menu>

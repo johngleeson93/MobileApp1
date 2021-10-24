@@ -29,18 +29,7 @@ class LandmarkMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListene
     contentBinding.mapView.onCreate(savedInstanceState)
     contentBinding.mapView.getMapAsync {
       map = it
-      configureMap()
-    }
-  }
-
-  fun configureMap() {
-    map.setOnMarkerClickListener(this)
-    map.uiSettings.setZoomControlsEnabled(true)
-    app.landmarks.findAll().forEach {
-      val loc = LatLng(it.lat, it.lng)
-      val options = MarkerOptions().title(it.title).position(loc)
-      map.addMarker(options).tag = it.id
-      map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
+      Companion.configureMap(this)
     }
   }
 
@@ -72,5 +61,18 @@ class LandmarkMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListene
   override fun onSaveInstanceState(outState: Bundle) {
     super.onSaveInstanceState(outState)
     contentBinding.mapView.onSaveInstanceState(outState)
+  }
+
+  companion object {
+    fun configureMap(landmarkMapsActivity: LandmarkMapsActivity) {
+      landmarkMapsActivity.map.setOnMarkerClickListener(landmarkMapsActivity)
+      landmarkMapsActivity.map.uiSettings.setZoomControlsEnabled(true)
+      landmarkMapsActivity.app.landmarks.findAll().forEach {
+        val loc = LatLng(it.lat, it.lng)
+        val options = MarkerOptions().title(it.title).position(loc)
+        landmarkMapsActivity.map.addMarker(options).tag = it.id
+        landmarkMapsActivity.map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
+      }
+    }
   }
 }

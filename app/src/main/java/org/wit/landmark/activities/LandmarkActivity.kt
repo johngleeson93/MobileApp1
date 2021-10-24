@@ -39,11 +39,14 @@ class LandmarkActivity : AppCompatActivity() {
 
         i("Landmark Activity started...")
 
+
         if (intent.hasExtra("landmark_edit")) {
             edit = true
             landmark = intent.extras?.getParcelable("landmark_edit")!!
             binding.landmarkTitle.setText(landmark.title)
+
             binding.description.setText(landmark.description)
+
             binding.btnAdd.setText(R.string.save_landmark)
             Picasso.get()
                 .load(landmark.image)
@@ -51,14 +54,14 @@ class LandmarkActivity : AppCompatActivity() {
             if (landmark.image != Uri.EMPTY) {
                 binding.chooseImage.setText(R.string.change_landmark_image)
             }
+
         }
 
         binding.btnAdd.setOnClickListener() {
             landmark.title = binding.landmarkTitle.text.toString()
             landmark.description = binding.description.text.toString()
-            if (landmark.title.isEmpty()) {
-                Snackbar.make(it,R.string.enter_landmark_title, Snackbar.LENGTH_LONG)
-                        .show()
+            if (landmark.title.isBlank()||(landmark.description.isBlank())) {
+                Snackbar.make(it,R.string.enter_landmark_title, Snackbar.LENGTH_LONG).show()
             } else {
                 if (edit) {
                     app.landmarks.update(landmark.copy())
